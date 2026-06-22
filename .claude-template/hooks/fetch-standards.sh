@@ -29,6 +29,7 @@ topics=(
   "general/error-handling.md"
   "general/code-structure.md"
   "patterns/anti-bloat.md"
+  "patterns/abstractions.md"
 )
 
 # TypeScript / JS

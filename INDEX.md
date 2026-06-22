@@ -10,17 +10,18 @@ Topic files under `standards/`. The SessionStart hook auto-loads the ones matchi
 - `general/error-handling.md` — narrow catches, fail-fast, no swallowing
 - `general/code-structure.md` — DRY, SOLID, Law of Demeter, small PRs, code health
 - `patterns/anti-bloat.md` — fight AI over-generation; smell checklist
+- `patterns/abstractions.md` — name-it-before-you-add-it; folder roles (lib/utils/services)
 
 ## typescript (loaded if package.json present)
-- `typescript/naming.md`
-- `typescript/functions.md`
-- `typescript/react-patterns.md` (if react dep)
-- `typescript/nextjs.md` (if next dep)
+- `typescript/naming.md` — file naming, full words, one export/file
+- `typescript/functions.md` — explicit return types, named interfaces, satisfies, annotate-when-unclear
+- `typescript/react-patterns.md` (if react dep) — server components, no useEffect-fetch, Suspense, parallel fetch
+- `typescript/nextjs.md` (if next dep) — route groups, server actions, env validation
 
 ## python (loaded if pyproject.toml / requirements.txt / *.py)
-- `python/naming.md`
-- `python/functions.md`
-- `python/fastapi-patterns.md` (if fastapi dep)
+- `python/naming.md` — snake_case/PascalCase, full words
+- `python/functions.md` — type annotations, docstrings (contract not name), logging discipline
+- `python/fastapi-patterns.md` (if fastapi dep) — routes/service/crud layering, Pydantic boundaries, DI, no-block-handler
 
 ## terraform (loaded if *.tf / terraform/)
 - `terraform/structure.md`
