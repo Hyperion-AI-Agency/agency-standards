@@ -66,3 +66,12 @@ for t in "${topics[@]}"; do
     echo
   fi
 done
+
+# Surface this project's saved decisions (written by the SessionEnd hook) so the
+# session continues with prior architecture / library / pattern choices.
+DEC="${CLAUDE_PROJECT_DIR:-.}/.claude/decisions.md"
+if [ -s "$DEC" ]; then
+  echo "----- project decisions (.claude/decisions.md) — honor these -----"
+  cat "$DEC"
+  echo
+fi
