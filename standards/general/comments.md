@@ -1,12 +1,15 @@
 # Comments
 
-Comments are a last resort, not a goal. Clean Code: "The proper use of comments is to compensate for our failure to express ourselves in code." Every comment is a small failure of naming or structure — try to fix the code first.
+**Keep comments VERY light. Default to none.** AI massively over-comments — narrating every line, restating the obvious, adding section banners. Don't. A comment is a last resort, used only when the code genuinely cannot express the *why*.
 
-- Explain **why**, never **what**. The code says what; a comment justifies a non-obvious decision, trade-off, or workaround.
+The bar before writing a comment: "would a competent developer be confused without this?" If no → delete it.
+
+- **Default: write zero comments.** Let names and structure carry the meaning. Only comment a genuinely non-obvious *why* (a workaround, a surprising trade-off, a spec/external quirk).
+- Explain **why**, never **what**. Never narrate what the code does — the reader can see it.
+- **No** redundant comments (`i++ // increment`), section banners (`# ---- helpers ----`), restating-the-name comments, changelog/attribution comments (`// added by X`), or "what changed" notes.
 - Delete commented-out code. Git is the history.
-- No redundant comments (`i++ // increment i`), no changelog comments, no attribution comments (`// added by X`).
-- Keep TODOs actionable and rare; prefer a tracked issue. A stale TODO is noise.
-- Public API docstrings are fine and encouraged (they're contracts, not what-comments): document params, returns, raises, and surprising behavior.
+- TODOs: rare and actionable, or a tracked issue. No vague `# TODO: improve`.
+- Docstrings on PUBLIC API only (contracts: inputs→outputs, raises, surprising behavior). Private/internal: skip unless the name truly can't carry it. Don't docstring obvious one-liners.
 
 ## Bad
 ```python
