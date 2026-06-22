@@ -73,4 +73,15 @@ else
   echo "  skills: SKIPPED (no local clone at $LOCAL_SRC and clone failed)"
 fi
 
+# --- 4. our own skills -----------------------------------------------------
+if [ -d "$HERE/skills" ]; then
+  mkdir -p "$TARGET/.claude/skills"
+  for d in "$HERE/skills"/*/; do
+    name="$(basename "$d")"
+    rm -rf "$TARGET/.claude/skills/$name"
+    cp -R "$d" "$TARGET/.claude/skills/$name"
+  done
+  echo "  skills (agency): $(ls "$HERE/skills" | tr '\n' ' ')"
+fi
+
 echo "Done. In a fresh Claude session run /hooks to approve, then restart."
