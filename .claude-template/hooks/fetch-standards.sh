@@ -30,6 +30,9 @@ topics=(
   "general/code-structure.md"
   "patterns/anti-bloat.md"
   "patterns/abstractions.md"
+  "patterns/code-smells.md"
+  "patterns/refactoring.md"
+  "patterns/design-patterns.md"
 )
 
 # TypeScript / JS
