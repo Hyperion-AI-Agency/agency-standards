@@ -9,6 +9,7 @@ Topic files under `standards/`. The SessionStart hook auto-loads the ones matchi
 - `general/comments.md` — why-not-what, comments as last resort
 - `general/error-handling.md` — narrow catches, fail-fast, no swallowing
 - `general/code-structure.md` — DRY, SOLID, Law of Demeter, small PRs, code health
+- `general/modern-language.md` — modern idioms: map/filter, Set/Map, comprehensions, no old for-loops
 - `patterns/anti-bloat.md` — fight AI over-generation; smell checklist; no backward-compat default
 - `patterns/abstractions.md` — name-it-before-you-add-it; folder roles (lib/utils/services)
 - `patterns/code-smells.md` — 22 smells, mechanical sign + fix (self-detection)

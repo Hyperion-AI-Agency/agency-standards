@@ -28,6 +28,7 @@ topics=(
   "general/comments.md"
   "general/error-handling.md"
   "general/code-structure.md"
+  "general/modern-language.md"
   "patterns/anti-bloat.md"
   "patterns/abstractions.md"
 )
