@@ -37,3 +37,17 @@ tight: a few rules + one bad/good example pair.
 - **This (prose, retrieved):** craft rules → shapes agent output.
 - **Deterministic gate (separate):** pre-commit + linters + CI rulesets → forces compliance.
 Both required. See `plans/2026-06-22-prd-code-quality-standards-system.md` in the ops workspace.
+
+## On-demand querying (MCP)
+
+Big reference catalogs (code smells, refactoring techniques, design patterns) are NOT
+auto-loaded — agents query them on demand via the `agency-standards` MCP server
+(`mcp/standards_server.py`): tools `list_standards`, `get_standard(id)`, `search_standards(query)`.
+
+Register once at user scope (works in every project, nothing in client repos):
+```bash
+claude mcp add --scope user agency-standards -- \
+  uv run --with mcp python /ABS/PATH/agency-standards/mcp/standards_server.py
+```
+Small craft rules (naming, functions, comments, anti-bloat, etc.) stay auto-loaded by the
+SessionStart hook; the heavy catalogs are pulled only when needed.

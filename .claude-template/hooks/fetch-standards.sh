@@ -30,9 +30,6 @@ topics=(
   "general/code-structure.md"
   "patterns/anti-bloat.md"
   "patterns/abstractions.md"
-  "patterns/code-smells.md"
-  "patterns/refactoring.md"
-  "patterns/design-patterns.md"
 )
 
 # TypeScript / JS
@@ -55,6 +52,9 @@ fi
 
 echo "# Agency Coding Standards (auto-loaded for this repo's detected stack)"
 echo "# Follow these. Linters + CI enforce the deterministic subset; these cover craft."
+echo "# ON-DEMAND: for code smells, refactoring techniques, and design-pattern choices,"
+echo "# query the 'agency-standards' MCP (list_standards / search_standards / get_standard)"
+echo "# — e.g. before refactoring or adding any abstraction. Don't guess; look it up."
 echo
 
 for t in "${topics[@]}"; do
