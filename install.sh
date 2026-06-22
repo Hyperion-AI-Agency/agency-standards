@@ -45,7 +45,7 @@ print(f"  settings: {os.path.basename(path)} (SessionStart, PreToolUse, SessionE
 PY
 
 # --- 3. Mat Pocock skills (MIT) --------------------------------------------
-SKILLS=(engineering/tdd engineering/to-prd engineering/to-issues productivity/grill-me)
+SKILLS=(engineering/tdd engineering/to-prd engineering/to-issues productivity/grill-me engineering/grill-with-docs)
 LOCAL_SRC="$HOME/projects/mattpocock-skills"
 SRC=""
 if [ -d "$LOCAL_SRC/skills" ]; then
@@ -68,7 +68,7 @@ if [ -n "$SRC" ]; then
   done
   # preserve attribution
   [ -f "$SRC/LICENSE" ] && cp "$SRC/LICENSE" "$TARGET/.claude/skills/MATTPOCOCK-LICENSE"
-  echo "  skills: tdd, to-prd, to-issues, grill-me (Mat Pocock, MIT — license preserved)"
+  echo "  skills: tdd, to-prd, to-issues, grill-me, grill-with-docs (Mat Pocock, MIT — license preserved)"
 else
   echo "  skills: SKIPPED (no local clone at $LOCAL_SRC and clone failed)"
 fi
