@@ -1,5 +1,16 @@
 # Python — Types, Docstrings, Logging
 
+## No boilerplate — use `@dataclass`
+Don't hand-write `__init__`, `__repr__`, `__eq__`, or getters/setters for data/holder/service classes. Use `@dataclass` (or `pydantic.BaseModel` for validated boundary data). Access fields directly; add a `@property` only when access needs real logic.
+```python
+from dataclasses import dataclass
+@dataclass
+class PricePoint:
+    vendor: str
+    price: float
+    at: datetime
+```
+
 ## Type annotations
 - Always annotate function/method signatures (params + return).
 - Annotate variables when the type isn't obvious from the right side; skip when it is.
