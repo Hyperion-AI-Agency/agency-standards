@@ -20,6 +20,18 @@ Cross-language design rules drawn from Clean Code (Robert C. Martin) and Google'
 - **Keep related code close:** colocate things that change together; don't scatter one feature across ten files.
 - **Composition over inheritance** by default.
 
+## Constants, regexes, config live in one place
+- **No magic numbers, regexes, or config literals scattered through services.** Define them once in a dedicated module (`constants.ts`, `patterns.ts`, `config.py`, etc.) and import where needed.
+- One source of truth → change in one place, and **unit-test the values/patterns directly** (test the regex against cases in isolation, not buried inside a service).
+- A regex used in code is also importable and tested on its own. A threshold/limit is a named exported constant, not an inline literal.
+- Env-driven config goes through the validated settings object (pydantic-settings / t3-env), not `os.getenv`/`process.env` reads sprinkled around.
+```ts
+// patterns.ts — single source, testable in isolation
+export const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+export const MAX_UPLOAD_BYTES = 10_485_760;
+// service imports them; the regex test file targets patterns.ts directly
+```
+
 ## Small changes (Google eng-practices)
 - Make **small, self-contained commits/PRs** — one logical change each. Easier to review, less likely to hide bugs, faster to merge.
 - A PR that "does one thing" is the unit of work. If you can split it, split it.
