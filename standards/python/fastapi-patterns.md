@@ -10,7 +10,7 @@ class OrderService:
         self.crud = crud or OrderCRUD()
     async def get_active(self, user_id: str) -> list[OrderResponse]:
         rows = await self.crud.find_active(user_id)
-        return [OrderResponse.model_validate(r) for r in rows]
+        return [OrderResponse.model_validate(row) for row in rows]
 ```
 
 ## Rules
