@@ -32,17 +32,23 @@ topics=(
   "patterns/abstractions.md"
 )
 
+# Detect deps across root + subdir manifests (monorepo-aware), excluding node_modules.
+pkgjson=$(find . -maxdepth 3 -name package.json -not -path '*/node_modules/*' 2>/dev/null)
+pydeps=$(find . -maxdepth 3 \( -name pyproject.toml -o -name requirements.txt \) -not -path '*/node_modules/*' 2>/dev/null)
+dep_in_pkg() { [ -n "$pkgjson" ] && echo "$pkgjson" | xargs grep -lq "$1" 2>/dev/null; }
+
 # TypeScript / JS
-if [ -f package.json ]; then
+if [ -n "$pkgjson" ]; then
   topics+=( "typescript/naming.md" "typescript/functions.md" )
-  grep -q '"next"'  package.json 2>/dev/null && topics+=( "typescript/nextjs.md" )
-  grep -q '"react"' package.json 2>/dev/null && topics+=( "typescript/react-patterns.md" )
+  dep_in_pkg '"next"'    && topics+=( "typescript/nextjs.md" )
+  dep_in_pkg '"react"'   && topics+=( "typescript/react-patterns.md" )
+  dep_in_pkg '"@nestjs/' && topics+=( "typescript/nestjs.md" )
 fi
 
 # Python
-if [ -f pyproject.toml ] || [ -f requirements.txt ] || compgen -G "*.py" >/dev/null 2>&1; then
+if [ -n "$pydeps" ] || compgen -G "*.py" >/dev/null 2>&1; then
   topics+=( "python/naming.md" "python/functions.md" )
-  grep -rqi "fastapi" pyproject.toml requirements.txt 2>/dev/null && topics+=( "python/fastapi-patterns.md" )
+  [ -n "$pydeps" ] && echo "$pydeps" | xargs grep -liq "fastapi" 2>/dev/null && topics+=( "python/fastapi-patterns.md" )
 fi
 
 # Terraform
