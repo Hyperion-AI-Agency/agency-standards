@@ -48,6 +48,14 @@ First question: **server state or client state?** (getting this wrong is the #1 
 Two traps: (1) **Context for hot state** — every consumer re-renders on every change (no selectors); fine for theme/auth, a perf bug for frequent updates → use Zustand/Jotai. (2) **Reaching for a global store too early** — most apps ship on `useState` + TanStack Query + URL state, no client-state lib. Add Zustand when prop-drilling genuinely-global UI state hurts.
 Boring default stack: TanStack Query + Zustand + nuqs + React Hook Form + Zod.
 
+## Loading/error: Suspense boundaries vs inline status — split by intent
+The query lives in the component either way (`useSuspenseQuery` co-locates too) — what moves to a boundary is only fallback rendering, not data ownership. Choose by intent:
+- **Initial reads → `useSuspenseQuery` + Suspense/error boundaries.** `data` is typed non-undefined (no `T | undefined` everywhere), errors throw to the nearest error boundary, loading/error branches deleted from every component. Control reveal granularity by boundary placement: one boundary around three components → they appear together; three boundaries → independent. Composes with Next streaming + `loading.tsx`.
+- **Mutations, background refetch, stale-while-revalidate → inline status flags** (`isFetching`, mutation `isPending`). Suspense only fires on the *first* load (no data yet); it cannot express refetch/mutation states — those MUST be inline. Not optional.
+- Default: Suspense for reads, manual flags for mutations + refetch indicators. Staying fully in-component is also legitimate (most Query apps do) — just watch the two footguns below.
+- **Popcorn vs coordinated loading:** per-component branches = each widget pops in independently (often janky — layout shift, spinners out of sync). Suspense lets you group reveal declaratively.
+- **Early-return waterfall (footgun, both patterns):** a parent that `if (isPending) return <Skeleton/>` before rendering children delays children's *independent* queries until the parent resolves — silently serializes parallel requests. Fix: hoist queries to the same level, prefetch in the parent, or `useQueries`/`useSuspenseQueries` for parallel fetches.
+
 ## Hooks guide
 - **`useState` vs `useReducer`** — reducer when 3+ related values change together, next-depends-on-prev, or you want centralized testable transitions (reducer = pure fn, trivially unit-tested).
 - **`useRef`** — mutable box, persists across renders, no re-render on change. Three jobs: (1) DOM access/3rd-party lib integration, (2) hold non-render value (timer id, prev value, "ran once" flag), (3) escape stale closures. Decision: UI must update on change? → `useState`. No (behind-the-scenes/DOM handle)? → `useRef`.
