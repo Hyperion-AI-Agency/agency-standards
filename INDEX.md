@@ -20,6 +20,7 @@ Topic files under `standards/`. The SessionStart hook auto-loads the ones matchi
 - `typescript/naming.md` — file naming, full words, one export/file
 - `typescript/functions.md` — explicit return types, named interfaces, satisfies, annotate-when-unclear
 - `typescript/react-patterns.md` (if react dep) — server components, no useEffect-fetch, Suspense, parallel fetch
+- `typescript/react-components.md` (if react dep) — 2026 component guide: server/client boundary, splitting, reuse ladder, state tree, hooks guide, perf order
 - `typescript/nextjs.md` (if next dep) — route groups, server actions, env validation
 - `typescript/nestjs.md` (if @nestjs dep) — modules/DI, config, TypeORM, DTOs, controllers, BullMQ
 

@@ -42,7 +42,7 @@ dep_in_pkg() { [ -n "$pkgjson" ] && echo "$pkgjson" | xargs grep -lq "$1" 2>/dev
 if [ -n "$pkgjson" ]; then
   topics+=( "typescript/naming.md" "typescript/functions.md" )
   dep_in_pkg '"next"'    && topics+=( "typescript/nextjs.md" )
-  dep_in_pkg '"react"'   && topics+=( "typescript/react-patterns.md" )
+  dep_in_pkg '"react"'   && topics+=( "typescript/react-patterns.md" "typescript/react-components.md" )
   dep_in_pkg '"@nestjs/' && topics+=( "typescript/nestjs.md" )
 fi
 
